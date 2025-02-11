@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OOP Overview</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                /* Adjusts padding for smaller screens */
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #ffffff;
+        }
+
+        a {
+            color: #4fa3d1;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #1e90ff;
+        }
+
+        pre {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            background-color: #333;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background: #252526;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre-wrap;
+        }
+
+        .keyword {
+            color: #569CD6;
+        }
+
+        .class-name {
+            color: #4EC9B0;
+        }
+
+        .function {
+            color: #DCDCAA;
+        }
+
+        .string {
+            color: #CE9178;
+        }
+
+        .comment {
+            color: #6A9955;
+            font-style: italic;
+        }
+
+        .number {
+            color: #B5CEA8;
+        }
+    </style>
+</head>
+
+</head>
+
+<body for="html-export">
+
+    <header style="position: relative; width: 100%; height: 250px; margin-bottom: 60px;">
+        <!-- Background Image with Reduced Opacity -->
+        <div style="
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background-image: url('./cover2.svg'); 
+            background-size: cover; 
+            background-position: center; 
+            filter: opacity(70%);
+            border-radius: 10px;
+        "></div>
+
+        <!-- Profile Picture (Fixed for Mobile & Desktop) -->
+        <div style="
+                position: absolute; 
+                left: 50%; 
+                top: 80%; 
+                width: 100px; 
+                height: 100px; 
+                border-radius: 50%; 
+                overflow: hidden; 
+                background-color: white; 
+                z-index: 1; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center;
+            ">
+            <img src="logo.png" alt="Profile Logo" style="width: 100%; height: 100%;">
+        </div>
+    </header>
+
+    <script>
+        function adjustProfilePosition() {
+            const profilePic = document.querySelector("header div:nth-child(2)");
+            if (window.innerWidth <= 730) {
+                profilePic.style.transform = "translate(-150%, 0%)"; // Center it in mobile
+            } else {
+                profilePic.style.transform = "translate(-300%, 0%)"; // Keep desktop position
+            }
+        }
+
+        // Adjust when page loads & when resized
+        window.addEventListener("resize", adjustProfilePosition);
+        window.addEventListener("load", adjustProfilePosition);
+    </script>
+
+
+    <button id="toggleSection" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: #1e65d6;
+color: white;
+border: none;
+padding: 0;
+border-radius: 50%;
+cursor: pointer;
+height: 60px;
+width: 60px;
+font-size: 14px;
+font-weight: bold;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3), 
+            0px 3px 6px rgba(0, 0, 0, 0.2);
+transition: all 0.2s ease-in-out;
+">
+        Java
+        <br>
+        ▼
+    </button>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const button = document.getElementById("toggleSection");
+            const pythonSection = document.querySelector("#oop-overview-for-linked-list");
+            const javaSection = document.querySelector("#oop-overview-for-java");
+
+            function updateButton() {
+                if (window.scrollY < javaSection.offsetTop - 200) {
+                    button.innerText = "Java\n▼";
+                    button.onclick = () => javaSection.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    button.innerText = "▲\nPython";
+                    button.onclick = () => pythonSection.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+
+            button.onclick = () => javaSection.scrollIntoView({ behavior: "smooth" });
+            window.addEventListener("scroll", updateButton);
+        });
+    </script>
+
+
+    <div class="crossnote markdown-preview  ">
+        <h2 style=" background-color: #252526; border-radius: 10px; padding: 5px;">OOP Overview: Java and Python Implementations for Key Concepts  <span style="font-size: medium;"> - by kks</span></h1>
+        <hr>
+        <h2 id="oop-overview-for-linked-list">OOP overview in python</h2>
+        <h3 id="1-classes-and-objects">1. <strong>Classes and Objects</strong> </h3>
+        <p>A class is a blueprint for creating objects. Objects are instances of a class. A class can contain attributes
+            (variables) and methods (functions) that define the behavior of the objects created from it.</p>
+        <h4 id="example">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Car</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> make<span class="token punctuation">,</span> model<span class="token punctuation">,</span> year<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>make <span class="token operator">=</span> make
+        self<span class="token punctuation">.</span>model <span class="token operator">=</span> model
+        self<span class="token punctuation">.</span>year <span class="token operator">=</span> year
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">start</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"The </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>make<span class="token punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>model<span class="token punctuation">}</span></span><span class="token string"> is starting."</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># Creating an object (instance) of the Car class</span>
+my_car <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Toyota"</span><span class="token punctuation">,</span> <span class="token string">"Camry"</span><span class="token punctuation">,</span> <span class="token number">2021</span><span class="token punctuation">)</span>
+my_car<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># Calling the method on the object</span>
+</code></pre>
+        <p>Object: An instance of a class, created with specific values.</p>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>another_car <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Honda"</span><span class="token punctuation">,</span> <span class="token string">"Civic"</span><span class="token punctuation">,</span> <span class="token number">2020</span><span class="token punctuation">)</span>
+</code></pre>
+        <h3 id="2-attributes-and-methods">2. <strong>Attributes and Methods</strong> </h3>
+        <ul>
+            <li>Attributes: Variables associated with an object that store the data of the object.</li>
+            <li>Methods: Functions associated with an object that define behaviors.</li>
+        </ul>
+        <h4 id="example-1">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Dog</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> breed<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name  <span class="token comment"># Attribute</span>
+        self<span class="token punctuation">.</span>breed <span class="token operator">=</span> breed  <span class="token comment"># Attribute</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">bark</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Method</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> says Woof!"</span></span><span class="token punctuation">)</span>
+
+<span class="token comment"># Using the class</span>
+dog1 <span class="token operator">=</span> Dog<span class="token punctuation">(</span><span class="token string">"Buddy"</span><span class="token punctuation">,</span> <span class="token string">"Golden Retriever"</span><span class="token punctuation">)</span>
+dog1<span class="token punctuation">.</span>bark<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># Calling the method</span>
+</code></pre>
+        <h3>3. <strong>The <code>__init__</code> Method (Constructor)</strong>
+            {#3-the-<strong>init</strong>-method-constructor }</h3>
+        <ul>
+            <li>The <code>__init__</code> method initializes an object when it's created. It’s automatically called when
+                you create a new object.</li>
+        </ul>
+        <h4 id="example-2">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Person</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> age<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>age <span class="token operator">=</span> age
+
+person1 <span class="token operator">=</span> Person<span class="token punctuation">(</span><span class="token string">"Alice"</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span>  <span class="token comment"># Calls __init__ to set name and age</span>
+
+</code></pre>
+        <h3 id="4-the-self-keyword">4. <strong>The <code>self</code> Keyword</strong> </h3>
+        <ul>
+            <li><code>self</code> refers to the instance of the class. It is used to access the attributes and methods
+                of the current object from within the class.</li>
+        </ul>
+        <h4 id="example-3">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Book</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> title<span class="token punctuation">,</span> author<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>title <span class="token operator">=</span> title
+        self<span class="token punctuation">.</span>author <span class="token operator">=</span> author
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">describe</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"Book: </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>title<span class="token punctuation">}</span></span><span class="token string"> by </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>author<span class="token punctuation">}</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+book1 <span class="token operator">=</span> Book<span class="token punctuation">(</span><span class="token string">"1984"</span><span class="token punctuation">,</span> <span class="token string">"George Orwell"</span><span class="token punctuation">)</span>
+book1<span class="token punctuation">.</span>describe<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 'self' allows access to instance variables</span>
+</code></pre>
+        <h3 id="5-encapsulation">5. <strong>Encapsulation</strong> </h3>
+        <ul>
+            <li>Encapsulation means hiding the internal details of an object and restricting access to them. You can
+                make attributes private by prefixing them with <code>__</code> (double underscore), which makes them
+                inaccessible from outside the class.</li>
+            <li>It also provides getter and setter methods to safely access and modify private attributes.</li>
+        </ul>
+        <h4 id="example-4">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Account</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> owner<span class="token punctuation">,</span> balance<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>__owner <span class="token operator">=</span> owner  <span class="token comment"># Private attribute</span>
+        self<span class="token punctuation">.</span>__balance <span class="token operator">=</span> balance  <span class="token comment"># Private attribute</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">get_balance</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> self<span class="token punctuation">.</span>__balance
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">deposit</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> amount<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-if">if</span> amount <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>__balance <span class="token operator">+=</span> amount
+        <span class="token keyword keyword-else">else</span><span class="token punctuation">:</span>
+            <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string">"Deposit amount must be positive."</span><span class="token punctuation">)</span>
+
+account1 <span class="token operator">=</span> Account<span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>account1<span class="token punctuation">.</span>get_balance<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># Accessing balance through a method</span>
+account1<span class="token punctuation">.</span>deposit<span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>account1<span class="token punctuation">.</span>get_balance<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+        <h3 id="6-inheritance">6. <strong>Inheritance</strong> </h3>
+        <ul>
+            <li>Inheritance allows a class to inherit attributes and methods from another class. This enables code reuse
+                and extension of existing functionality.</li>
+        </ul>
+        <h4 id="example-5">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Animal</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> makes a sound"</span></span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span>Animal<span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment"># Dog inherits from Animal</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> barks"</span></span><span class="token punctuation">)</span>
+
+dog <span class="token operator">=</span> Dog<span class="token punctuation">(</span><span class="token string">"Buddy"</span><span class="token punctuation">)</span>
+dog<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># Overridden method of Dog class</span>
+</code></pre>
+        <h3 id="7-polymorphism">7. <strong>Polymorphism</strong> </h3>
+        <ul>
+            <li>Polymorphism allows objects of different classes to be treated as objects of a common superclass. The
+                method that gets called depends on the type of the object.</li>
+        </ul>
+        <h4 id="example-6">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span>Animal<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-print">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string"> meows"</span></span><span class="token punctuation">)</span>
+
+animals <span class="token operator">=</span> <span class="token punctuation">[</span>Dog<span class="token punctuation">(</span><span class="token string">"Rex"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Cat<span class="token punctuation">(</span><span class="token string">"Whiskers"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+<span class="token keyword keyword-for">for</span> animal <span class="token keyword keyword-in">in</span> animals<span class="token punctuation">:</span>
+    animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># Polymorphism: calling the appropriate speak method</span>
+</code></pre>
+        <h3 id="8-abstraction">8. <strong>Abstraction</strong> </h3>
+        <ul>
+            <li>Abstraction means hiding complex implementation details and showing only the necessary functionality.
+                This is usually achieved using abstract classes and methods, but you can also abstract functionality by
+                defining high-level methods in the class.</li>
+        </ul>
+        <h4 id="example-7">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-from">from</span> abc <span class="token keyword keyword-import">import</span> ABC<span class="token punctuation">,</span> abstractmethod
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Shape</span><span class="token punctuation">(</span>ABC<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token decorator annotation punctuation">@abstractmethod</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">area</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-pass">pass</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Circle</span><span class="token punctuation">(</span>Shape<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> radius<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>radius <span class="token operator">=</span> radius
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">area</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token number">3.14</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>radius <span class="token operator">*</span> self<span class="token punctuation">.</span>radius
+
+circle <span class="token operator">=</span> Circle<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>circle<span class="token punctuation">.</span>area<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># The area method is defined in the subclass</span>
+</code></pre>
+        <h3 id="9-class-vs-instance-methods">9. <strong>Class vs. Instance Methods</strong> </h3>
+        <ul>
+            <li>Class methods are methods that are bound to the class, not instances. They are defined using
+                <code>@classmethod</code> and take <code>cls</code> as the first parameter.
+            </li>
+        </ul>
+        <h4 id="example-8">Example: </h4>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Car</span><span class="token punctuation">:</span>
+    count <span class="token operator">=</span> <span class="token number">0</span>  <span class="token comment"># Class variable</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> make<span class="token punctuation">,</span> model<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>make <span class="token operator">=</span> make
+        self<span class="token punctuation">.</span>model <span class="token operator">=</span> model
+        Car<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>  <span class="token comment"># Modifies class variable</span>
+
+    <span class="token decorator annotation punctuation">@classmethod</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">get_car_count</span><span class="token punctuation">(</span>cls<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> cls<span class="token punctuation">.</span>count
+
+car1 <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Toyota"</span><span class="token punctuation">,</span> <span class="token string">"Corolla"</span><span class="token punctuation">)</span>
+car2 <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Honda"</span><span class="token punctuation">,</span> <span class="token string">"Civic"</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>Car<span class="token punctuation">.</span>get_car_count<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># Class method accessing the class variable</span>
+</code></pre>
+        <ul>
+            <li>Instance methods are bound to the instance and can access instance-specific data.</li>
+        </ul>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code>car1 <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Toyota"</span><span class="token punctuation">,</span> <span class="token string">"Corolla"</span><span class="token punctuation">)</span>
+car2 <span class="token operator">=</span> Car<span class="token punctuation">(</span><span class="token string">"Honda"</span><span class="token punctuation">,</span> <span class="token string">"Civic"</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>car1<span class="token punctuation">.</span>get_car_count<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># Calling class method on instance</span>
+</code></pre>
+        <h3 id="10-example-book-and-author-objects">10. <strong>Example: <code>Book</code> and <code>Author</code>
+                Objects</strong> </h3>
+        <ul>
+            <li>
+                <p>In this example, a <code>Book</code> object will have an <code>Author</code> object as an attribute.
+                    The <code>Author</code> object will contain details about the author, and the <code>Book</code>
+                    object will contain details about the book and a reference to the <code>Author</code>.</p>
+            </li>
+            <li>
+                <p><strong>Example:</strong></p>
+            </li>
+        </ul>
+        <pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Author</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> name<span class="token punctuation">,</span> birth_year<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>birth_year <span class="token operator">=</span> birth_year
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">get_author_info</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword keyword-return">return</span> <span class="token string-interpolation"><span class="token string">f"Author: </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span><span class="token string">, Born: </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>birth_year<span class="token punctuation">}</span></span><span class="token string">"</span></span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Book</span><span class="token punctuation">:</span>
+    <span class="token keyword keyword-def">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> title<span class="token punctuation">,</span> year<span class="token punctuation">,</span> author<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>title <span class="token operator">=</span> title
+        self<span class="token punctuation">.</span>year <span class="token operator">=</span> year
+        self<span class="token punctuation">.</span>author <span class="token operator">=</span> author  <span class="token comment"># The Book object has an Author object</span>
+
+    <span class="token keyword keyword-def">def</span> <span class="token function">get_book_info</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        author_info <span class="token operator">=</span> self<span class="token punctuation">.</span>author<span class="token punctuation">.</span>get_author_info<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># Accessing Author's method</span>
+        <span class="token keyword keyword-return">return</span> <span class="token string-interpolation"><span class="token string">f"Book: </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>title<span class="token punctuation">}</span></span><span class="token string">, Year: </span><span class="token interpolation"><span class="token punctuation">{</span>self<span class="token punctuation">.</span>year<span class="token punctuation">}</span></span><span class="token string">, </span><span class="token interpolation"><span class="token punctuation">{</span>author_info<span class="token punctuation">}</span></span><span class="token string">"</span></span>
+
+<span class="token comment"># Creating an Author object</span>
+author1 <span class="token operator">=</span> Author<span class="token punctuation">(</span><span class="token string">"J.K. Rowling"</span><span class="token punctuation">,</span> <span class="token number">1965</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Creating a Book object with an Author object</span>
+book1 <span class="token operator">=</span> Book<span class="token punctuation">(</span><span class="token string">"Harry Potter and the Sorcerer's Stone"</span><span class="token punctuation">,</span> <span class="token number">1997</span><span class="token punctuation">,</span> author1<span class="token punctuation">)</span>
+
+<span class="token comment"># Getting information about the Book and its Author</span>
+<span class="token keyword keyword-print">print</span><span class="token punctuation">(</span>book1<span class="token punctuation">.</span>get_book_info<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+        <ul>
+            <li><strong>Output</strong></li>
+        </ul>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>Book: Harry Potter and the Sorcerer's Stone, Year: 1997, Author: J.K. Rowling, Born: 1965
+</code></pre>
+        <ul>
+            <li><strong>Explanation:</strong></li>
+            <li>Author Class: The <code>Author</code> class has attributes like <code>name</code> and
+                <code>birth_year</code>. It also has a method <code>get_author_info()</code> to return information about
+                the author.
+            </li>
+            <li>Book Class: The <code>Book</code> class has attributes like <code>title</code>, <code>year</code>, and a
+                reference to an <code>Author</code> object. The <code>get_book_info()</code> method combines information
+                about the book and its author.</li>
+            <li>Connecting Objects: The <code>Book</code> object is connected to the <code>Author</code> object by
+                passing the author object as an argument to the <code>Book</code> constructor.</li>
+        </ul>
+
+    </div>
+    <hr>
+    <div class="crossnote markdown-preview  ">
+
+        <h2 id="oop-overview-for-java">OOP Overview in Java </h2>
+        <h3 id="1-classes-and-objects">1. <strong>Classes and Objects</strong> </h3>
+        <ul>
+            <li>A class is a blueprint for creating objects. Objects are instances of a class. A class can contain
+                attributes (fields) and methods that define the behavior of the objects created from it.</li>
+        </ul>
+        <h4 id="example">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> make<span class="token punctuation">;</span>
+    <span class="token class-name">String</span> model<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> year<span class="token punctuation">;</span>
+
+    <span class="token comment">// Constructor</span>
+    <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token class-name">String</span> make<span class="token punctuation">,</span> <span class="token class-name">String</span> model<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> year<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>make <span class="token operator">=</span> make<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>model <span class="token operator">=</span> model<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>year <span class="token operator">=</span> year<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-void">void</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"The "</span> <span class="token operator">+</span> make <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> model <span class="token operator">+</span> <span class="token string">" is starting."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Creating an object (instance) of the Car class</span>
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Car</span> myCar <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token string">"Toyota"</span><span class="token punctuation">,</span> <span class="token string">"Camry"</span><span class="token punctuation">,</span> <span class="token number">2021</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        myCar<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Calling the method on the object</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <p>Object: An instance of a class, created with specific values.</p>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token class-name">Car</span> anotherCar <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token string">"Honda"</span><span class="token punctuation">,</span> <span class="token string">"Civic"</span><span class="token punctuation">,</span> <span class="token number">2020</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+        <h3 id="2-attributes-and-methods">2. <strong>Attributes and Methods</strong> </h3>
+        <ul>
+            <li>Attributes: Variables associated with an object that store its data.</li>
+            <li>Methods: Functions associated with an object that define behaviors.</li>
+        </ul>
+        <h4 id="example-1">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token class-name">String</span> breed<span class="token punctuation">;</span>
+
+    <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">String</span> breed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>breed <span class="token operator">=</span> breed<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-void">void</span> <span class="token function">bark</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">" says Woof!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Using the class</span>
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Dog</span> dog1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">"Buddy"</span><span class="token punctuation">,</span> <span class="token string">"Golden Retriever"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dog1<span class="token punctuation">.</span><span class="token function">bark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Calling the method</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="3-constructors">3. <strong>Constructors</strong> </h3>
+        <ul>
+            <li>The constructor initializes an object when it's created. It’s automatically called when you create a new
+                object.</li>
+        </ul>
+        <h4 id="example-2">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> age<span class="token punctuation">;</span>
+
+    <span class="token comment">// Constructor</span>
+    <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Person</span> person1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">"Alice"</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="4-the-this-keyword">4. <strong>The this Keyword</strong> </h3>
+        <ul>
+            <li><code>this</code> refers to the instance of the class. It is used to access instance variables and
+                methods.</li>
+        </ul>
+        <h4 id="example-3">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Book</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> title<span class="token punctuation">;</span>
+    <span class="token class-name">String</span> author<span class="token punctuation">;</span>
+
+    <span class="token class-name">Book</span><span class="token punctuation">(</span><span class="token class-name">String</span> title<span class="token punctuation">,</span> <span class="token class-name">String</span> author<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>title <span class="token operator">=</span> title<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>author <span class="token operator">=</span> author<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-void">void</span> <span class="token function">describe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Book: "</span> <span class="token operator">+</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>title <span class="token operator">+</span> <span class="token string">" by "</span> <span class="token operator">+</span> <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>author<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Book</span> book1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Book</span><span class="token punctuation">(</span><span class="token string">"1984"</span><span class="token punctuation">,</span> <span class="token string">"George Orwell"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        book1<span class="token punctuation">.</span><span class="token function">describe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="5-encapsulation">5. <strong>Encapsulation</strong> </h3>
+        <ul>
+            <li>Encapsulation means hiding the internal details of an object and restricting access. Attributes are made
+                private, and getter and setter methods are used to access them.</li>
+        </ul>
+        <h4 id="example-4">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Account</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-private">private</span> <span class="token class-name">String</span> owner<span class="token punctuation">;</span>
+    <span class="token keyword keyword-private">private</span> <span class="token keyword keyword-double">double</span> balance<span class="token punctuation">;</span>
+
+    <span class="token class-name">Account</span><span class="token punctuation">(</span><span class="token class-name">String</span> owner<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> balance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>balance <span class="token operator">=</span> balance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Getter method</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-double">double</span> <span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> balance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Setter method</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-void">void</span> <span class="token function">deposit</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>amount <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            balance <span class="token operator">+=</span> amount<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+            <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Deposit amount must be positive."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Account</span> account1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Account</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>account1<span class="token punctuation">.</span><span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account1<span class="token punctuation">.</span><span class="token function">deposit</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>account1<span class="token punctuation">.</span><span class="token function">getBalance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="6-inheritance">6. <strong>Inheritance</strong> </h3>
+        <ul>
+            <li>Inheritance allows a class to inherit attributes and methods from another class, enabling code reuse.
+            </li>
+        </ul>
+        <h4 id="example-5">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+
+    <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-void">void</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">" makes a sound."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Dog</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-super">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword keyword-void">void</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">" barks."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Dog</span> dog <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">"Buddy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dog<span class="token punctuation">.</span><span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Overridden method of Dog class</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="7-polymorphism">7. <strong>Polymorphism</strong> </h3>
+        <ul>
+            <li>Polymorphism allows objects of different classes to be treated as objects of a common superclass.</li>
+        </ul>
+        <h4 id="example-6">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Cat</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-super">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword keyword-void">void</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name <span class="token operator">+</span> <span class="token string">" meows."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Animal</span><span class="token punctuation">[</span><span class="token punctuation">]</span> animals <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token keyword keyword-new">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token string">"Rex"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token string">"Whiskers"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span><span class="token class-name">Animal</span> animal <span class="token operator">:</span> animals<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            animal<span class="token punctuation">.</span><span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// Calls the appropriate method</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="8-abstraction">8. <strong>Abstraction</strong> </h3>
+        <ul>
+            <li>Abstraction hides implementation details while exposing only essential features.</li>
+        </ul>
+        <h4 id="example-7">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-abstract">abstract</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-abstract">abstract</span> <span class="token keyword keyword-double">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Circle</span> <span class="token keyword keyword-extends">extends</span> <span class="token class-name">Shape</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> radius<span class="token punctuation">;</span>
+
+    <span class="token class-name">Circle</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> radius<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>radius <span class="token operator">=</span> radius<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword keyword-double">double</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> <span class="token number">3.14</span> <span class="token operator">*</span> radius <span class="token operator">*</span> radius<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Shape</span> circle <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Circle</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>circle<span class="token punctuation">.</span><span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="9-static-vs-instance-methods">9. <strong>Static vs Instance Methods</strong> </h3>
+        <ul>
+            <li>Static methods belong to the class and do not require an object.</li>
+            <li>Instance methods require an object of the class.</li>
+        </ul>
+        <h4 id="example-8">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Car</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-int">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        count<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-int">int</span> <span class="token function">getCarCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> count<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Car</span> car1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Car</span> car2 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Car</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">Car</span><span class="token punctuation">.</span><span class="token function">getCarCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Static method called on the class</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+        <h3 id="10-example-book-and-author-objects">10. <strong>Example: <code>Book</code> and <code>Author</code>
+                Objects</strong> </h3>
+        <ul>
+            <li>A Book object will have an Author object as an attribute.</li>
+        </ul>
+        <h4 id="example-9">Example: </h4>
+        <pre data-role="codeBlock" data-info="java" class="language-java java"><code><span class="token keyword keyword-class">class</span> <span class="token class-name">Author</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> birthYear<span class="token punctuation">;</span>
+
+    <span class="token class-name">Author</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> birthYear<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>birthYear <span class="token operator">=</span> birthYear<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">String</span> <span class="token function">getAuthorInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> <span class="token string">"Author: "</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">", Born: "</span> <span class="token operator">+</span> birthYear<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Book</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> title<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> year<span class="token punctuation">;</span>
+    <span class="token class-name">Author</span> author<span class="token punctuation">;</span>
+
+    <span class="token class-name">Book</span><span class="token punctuation">(</span><span class="token class-name">String</span> title<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> year<span class="token punctuation">,</span> <span class="token class-name">Author</span> author<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>title <span class="token operator">=</span> title<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>year <span class="token operator">=</span> year<span class="token punctuation">;</span>
+        <span class="token keyword keyword-this">this</span><span class="token punctuation">.</span>author <span class="token operator">=</span> author<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">String</span> <span class="token function">getBookInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> <span class="token string">"Book: "</span> <span class="token operator">+</span> title <span class="token operator">+</span> <span class="token string">", Year: "</span> <span class="token operator">+</span> year <span class="token operator">+</span> <span class="token string">", "</span> <span class="token operator">+</span> author<span class="token punctuation">.</span><span class="token function">getAuthorInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-public">public</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">Main</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-public">public</span> <span class="token keyword keyword-static">static</span> <span class="token keyword keyword-void">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Creating an Author object</span>
+        <span class="token class-name">Author</span> author1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Author</span><span class="token punctuation">(</span><span class="token string">"J.K. Rowling"</span><span class="token punctuation">,</span> <span class="token number">1965</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Creating a Book object with an Author object</span>
+        <span class="token class-name">Book</span> book1 <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">Book</span><span class="token punctuation">(</span><span class="token string">"Harry Potter and the Sorcerer's Stone"</span><span class="token punctuation">,</span> <span class="token number">1997</span><span class="token punctuation">,</span> author1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Getting information about the Book and its Author</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>book1<span class="token punctuation">.</span><span class="token function">getBookInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+        <ul>
+            <li><strong>Output</strong></li>
+        </ul>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>Book: Harry Potter and the Sorcerer's Stone, Year: 1997, Author: J.K. Rowling, Born: 1965
+</code></pre>
+        <ul>
+            <li>
+                <p><strong>Explanation</strong></p>
+            </li>
+            <li>
+                <p><strong>Author Class:</strong></p>
+                <ul>
+                    <li>The <code>Author</code> class has attributes like <code>name</code> and <code>birthYear</code>.
+                    </li>
+                    <li>It also has a method <code>getAuthorInfo()</code> that returns a formatted string with the
+                        author's details.</li>
+                </ul>
+            </li>
+            <li>
+                <p><strong>Book Class:</strong></p>
+                <ul>
+                    <li>The <code>Book</code> class has attributes like <code>title</code>, <code>year</code>, and an
+                        <code>Author</code> object as an attribute.
+                    </li>
+                    <li>The method <code>getBookInfo()</code> retrieves the book details and calls
+                        <code>getAuthorInfo()</code> from the <code>Author</code> class to include the author's
+                        information.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p><strong>Connecting Objects:</strong></p>
+                <ul>
+                    <li>The <code>Book</code> object is connected to an <code>Author</code> object by passing the
+                        <code>author1</code> instance to the <code>Book</code> constructor.
+                    </li>
+                    <li>This demonstrates <strong>composition</strong>, where an object (<code>Book</code>) contains
+                        another object (<code>Author</code>) as an attribute.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>This example showcases <strong>Encapsulation (private attributes via constructor parameters)</strong> and
+            <strong>Composition (Book contains Author)</strong> in <strong>Object-Oriented Programming (OOP) with
+                Java</strong>.
+        </p>
+
+    </div>
+
+</body>
+
+</html>
